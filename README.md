@@ -32,18 +32,40 @@ Chia-Yun Lai, a Tuza Olukan, a  Sergio Santos, a Amal Al Ghaferi, a Matteo Chies
 Laboratory for Energy and NanoScience (LENS), Institute Center for Future Energy (iFES), Masdar Institute of Science and Technology, Abu Dhabi, UAE
 
 
+## Detail for raw data 
+
+The raw data to produce the force profiles was processed with a matlab code (*available upon request* contacting [here](http://www.lens-online.net/)  M Chiesa).  The raw data and code can be found upon request (link above for password and username) in [www.dropbox.com/home/Power Law](https://www.dropbox.com/home/Power Law) 
+
+In the dropbox account the data has been stored both in raw format, i.e. volts and phase, and as processed force profiles in PROCESSED_DATA.mat files. 
+
+The code employed can also be found there. 
+
+
 ##  Matlab (mat file) with data 
 
-The raw data has been obtained by processing amplitude versus distance curves obtained with an Asylum AFM. From these curves the force versus distance profiles have been generated and saved for each tip and for each size of tip in matlab (mat) files.From the force profiles distances have been recorded as described in the article *The power laws of nanoscale forces in ambient conditions*. From these distances ratios have been recvered also as detailed in the article. The ratios are d_0/d_1, d0_d_2, ... d_0/d_7 as detailed in the article. 
+
+
+
+The raw data has been obtained by processing amplitude versus distance curves obtained with an Asylum AFM. From these curves the force versus distance profiles have been generated and saved for each tip and for each size of tip in matlab (mat) files.
+
+From the force profiles distances have been recorded as described in the article *The power laws of nanoscale forces in ambient conditions* and can be accessed and processed as detailed in the paragraph above. 
+
+From now on however we assume that we have the distances and ratios from the force profiles as explained below.  The distance ratios have been recovered also as detailed in the article. 
+
+
+The ratios are d_0/d_1, d0_d_2, ... d_0/d_7 as detailed in the article. 
+
 
 The distances for all the ratios have been saved in mat files:
 
-*TIPS.mat*
+*TIPS.mat* 
+
+that can be found [here](https://github.com/FSDataAnalysis/PowerLawsNanoscaleForces)
 
 ### Data structures in Matlab (mat) files
 
 
-This file contains data for the 5 different tips employed in this work. 
+The *TIPS.mat* file contains data for the 5 different tips employed in this work. 
 Each tip is numberd as follows:
 
 * Tip_1
@@ -52,7 +74,7 @@ Each tip is numberd as follows:
 
 * etc. 
 
-The above variables are data structures in matlab that are loaded directly from the *TIPS.mat* file. 
+The above variables are data structures in matlab that are loaded directly from the *TIPS.mat* file, i.e. load TIPS.mat (from matlab console) 
 
 
 For each tip, i.e. Tip_1, etc.,  data has been obtained at a different value of crticical amplitude in Volts. The Vollts to meter conversion was roughly 40 nm per volt. The value in volts has been saved for each tip as a child data structure as follows:
@@ -98,26 +120,76 @@ An example of the format is:
 
 
 
-the above is the first data point of tip one for a critical amplitude of 0.24 Volts, i.e. R=4.75(0.24*40e-9)^(1.1)= 7.2 nm. 
+the above is the first data point of tip one for a critical amplitude of 0.24 Volts, i.e. R=4.75(0.24*40e-9)^(1.1)= 7.2 nm. By choosing the other data points, i.e. columns in the matrix, all the data for tip 1 for Ac=0.24 is obatined.  
 
 
 
 ## Scripts for Power Scale laws in nanoscale forces
 
+### Further processing of files
 
-- Detail on raw data -
+In order to convert Amplitude in Volts into meters and recover the size of the tip for each data point the following procedure needs to be followed. 
 
-The raw data to produce the force profiles was processed with a matlab code (*available upon request* [here](http://www.lens-online.net/) to M Chiesa). The raw data can also be found upon request in the link above in [www.dropbox.com/home/Power Law](https://www.dropbox.com/home/Power Law) 
+**1. Run the main code** 
 
---------------------------------
+[MainCode.m](https://github.com/FSDataAnalysis/PowerLawsNanoscaleForces)
 
-Then the data was processed and stored in a mat (matlab) file as detailed in the point above, i.e. **TIPS.mat**, that can be found [here](https://github.com/FSDataAnalysis/PowerLawsNanoscaleForces) by requesting a password and a username [here](http://www.lens-online.net/)
+This code reads the TIPS.mat file and removes possible NAN objects or outliers from the data (employing a standard machine learning algorithm, i.e. p-value).
 
-The file **TIPS.mat** can be processed as follows to reproduce the data in the article:
+The generated mat file is:
 
-### Scripts
-
-A set of scripts  have been written in Matlab and R and require a working Matlab and R version. The Rscripts.exe need to be added to the environment in a windows machine, i.e. the Rscript.exe needs to be added to the path. The R code is employed to carry out statistical methods employed in this work with the standard lm pachage from R.
+**PROCESSSED_TIPS.mat**
 
 
-### Usage os scripts
+2. The above mat file **PROCESSED_TIPS.mat** is **then further processed** in order to 
+
+1) arrange it and get the right format. 
+
+2) Choose the value of the intermolecular distance a0, the surface energy of the sample, i.e. gamma, and the Hamaker constant, i.e. Hamaker.  In this work a0=0.165 nm is typically employed as also reported in the literature. 
+
+These values can be changed by inputing them in the script as required. The names are clear and are found at the top of the script. 
+
+**THE STEPS ARE:**
+
+First the **GeneratingTheDxMATFile.rar** file needs to be unzipped. It can be found in the repository together with the MainCode.m file. 
+
+Second the **PROCESSED_TIPS.mat** file needs to be added to the folder. 
+
+Third, the **Dx_Main.m** file needs to be run.
+
+Fourth, run the **Dx_second_MatricedData.m** file. 
+
+
+The resulting **DX_DATA_PROCESSED.mat** file can now be employed to reproduce the figures. 
+
+
+
+
+### FIGURE 2 in the paper
+
+
+1. Unzip the **GeneratingFigure2.rar** file
+
+2. Add the *DX_DATA_PROCESSED.mat** file to the resulting folder. 
+
+3. Run the **Figure2_Inf_Dx.m** file to produce the first part of Fig. 2
+
+4. Run the **Figure2_n_Runivariate.m** file to produce the second part of Fig. 2
+
+
+### FIGURE 3 in the paper
+
+
+
+1. Unzip the **GeneratingFigure3.rar** file
+
+2. Add the *DX_DATA_PROCESSED.mat** file to the resulting folder. 
+
+3. Run the **Figure3_Inf_DxMultivariate.m** file to run the statistics package in R
+
+
+4. Run the **Figure3_2_n_Multivariate.m** file to produce  Fig. 3
+
+The errors at a 95% confidence interval are also plotted as Figures 2 and 3 in matlab, i.e minima and maxima. 
+
+
