@@ -77,13 +77,15 @@ The code employed can also be found there. The contents in the dropbox account a
   in the rar file *PowerLawAllTipsDistances.rar*
   
   
-### Plotting indicudual force profiles
+### Plotting individual force profiles
 
 Force versus distance curves for individual tips and data points can be plotted in matlab by laoding the mat files in the folder *ALL_STATS_5_TIPS* and calling the distance with the D structure and the force with the FORCE structure. 
 
 For example, for *Figure S4* laoding ALL_DATA_STATS_0_FC1.mat  and/or ALL_DATA_STATS_0_FC8.mat  and calling:
 
 *plot(D.No_1, FORCE.No_1)*
+
+See more details below. 
   
 ### Accounting for intermolecular distances
 
