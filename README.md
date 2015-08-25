@@ -22,7 +22,7 @@ Laboratory for Energy and NanoScience (LENS), Institute Center for Future Energy
 
 # DATA sets and contents for:
 
-**The power laws of nanoscale forces in ambient conditions**
+*The power laws of nanoscale forces in ambient conditions*
 
 by 
 
@@ -32,17 +32,74 @@ Chia-Yun Lai, a Tuza Olukan, a  Sergio Santos, a Amal Al Ghaferi, a Matteo Chies
 Laboratory for Energy and NanoScience (LENS), Institute Center for Future Energy (iFES), Masdar Institute of Science and Technology, Abu Dhabi, UAE
 
 
-## Detail for raw data 
+## Details for acccessing raw data 
 
-The raw data to produce the force profiles was processed with a matlab code (*available upon request* contacting [here](http://www.lens-online.net/)  M Chiesa).  The raw data and code can be found upon request (link above for password and username) in [www.dropbox.com/home/Power Law](https://www.dropbox.com/home/Power Law) 
+### Raw data
 
-In the dropbox account the data has been stored both in raw format, i.e. volts and phase, and as processed force profiles in PROCESSED_DATA.mat files. 
+The raw data to produce the force profiles was processed with a matlab code (*available upon request* contacting [here](http://www.lens-online.net/)  Dr M Chiesa).  The raw data and code can be found upon request (link above for password and username) in [www.dropbox.com/home/Power Law](https://www.dropbox.com/home/Power Law) 
 
-The code employed can also be found there. 
+Note: *The password and username for dropbox are the same as that for this github account*.
 
 
-##  Matlab (mat file) with data 
+In the dropbox account the data has been stored both in raw format (text files), i.e. volts and phase, and as processed force profiles in PROCESSED_DATA.mat files. 
 
+The code employed can also be found there. The contents in the dropbox account are devided in three folders:
+
+1) POWER LAWS (raw and semi processed data)
+
+  1.1) ALICE: Contains all force profiles and raw text files by Alice (3 tips)
+  1.2) TUZA:  Contains all force profiles and raw text files by Tuza  (2 tips)
+  
+2) UPDATED CODES
+
+  1.1) Contains a folder with the force reconstruction scripts in Matlab
+  
+  1.2) Contains a folder with the statistics code employed to process the force         profiles into force versus distance, energy dissipation and other, work of        adhesion, distances, etc. 
+  
+3) ALL_STATS_5_TIPS: Processed distanced from Force of adhesion
+
+  The distances from Fts=Force of adhesion to any point beta, i.e. Beta 1, 2,      etc. as discussed in the paper *The power laws of nanoscale forces in ambient    conditions*, can be found in this folder for each tip and each critical          amplitude, i.e. tip radius. 
+  
+  For example, the file *ALL_DATA_STATS_0_FC1.mat* contains a matrix termed 
+  *dFAD_FAD_zero_matrix_Stats* of 10 columns by approximately 200 rows. 
+  
+  *The columns* contains distances (in mters) from the minima in force (Force of   adhesion or F_AD) to:
+  
+  * 0.05FAD, 0.15FAD, ..., 0.95FAD
+  
+  *The raws* contain information about each data point for each tip. 
+  
+  *The names of the files* contain information about tip and tip size. For         example in *ALL_DATA_STATS_0_FC1.mat* the zero stands for tip 0 and FC1 stands
+  for the experiments of the first tip size. 
+  
+  *The tip sizes for each tip* in relation to each data file are found in the      excel file in the dropbox account      
+  [here](https://www.dropbox.com/home/Power%20Law/ALL_STATS_5_TIPS)
+  in the rar file *PowerLawAllTipsDistances.rar*
+  
+  
+### Plotting indicudual force profiles
+
+Force versus distance curves for individual tips and data points can be plotted in matlab by laoding the mat files in the folder *ALL_STATS_5_TIPS* and calling the distance with the D structure and the force with the FORCE structure. 
+
+For example, for *Figure S4* laoding ALL_DATA_STATS_0_FC1.mat  and/or ALL_DATA_STATS_0_FC8.mat  and calling:
+
+*plot(D.No_1, FORCE.No_1)*
+  
+### Accounting for intermolecular distances
+
+
+  The *dFAD_FAD_zero_matrix_Stats* matrices that have been described above,        contain the distances that have been employed in this work without including     the intermolecular distance a0. 
+  
+  In Matlab it is trivial to account for a0 in a single operation, i.e. 
+  
+  *dFAD_FAD_zero_matrix_Stats+a0* adds the distance a0 to all the distances        measured from the point of minima. 
+  
+  
+  For further details please contact Matteo Chiesa at mchiesa@masdar.ac.ar or
+  Sergio Santos as santos_en@yahoo.com 
+
+
+##  Matlab (mat file) with (Semi-raw data) data 
 
 
 
@@ -61,6 +118,7 @@ The distances for all the ratios have been saved in mat files:
 *TIPS.mat* 
 
 that can be found [here](https://github.com/FSDataAnalysis/PowerLawsNanoscaleForces)
+
 
 ### Data structures in Matlab (mat) files
 
@@ -193,3 +251,24 @@ The resulting **DX_DATA_PROCESSED.mat** file can now be employed to reproduce th
 The errors at a 95% confidence interval are also plotted as Figures 2 and 3 in matlab, i.e minima and maxima. 
 
 
+# VISUALIZING INDIVIDUAL FORCE CURVES
+
+The force versus distance profiles can be visualized one by one by loading any of the mat files in the *ALL_STATS_5_TIPS* folder in the drpbox account [force profiles here](https://www.dropbox.com/home/Power%20Law/ALL_STATS_5_TIPS)
+
+Once any of the mat files are opened, i.e. single tip for single tip radius size containing approximately 200 curves each, the figures can be produced in matlab via de commant
+
+*plot(D.No_0, FORCE.No_0)*
+
+The D and FORCE objects are structures containing the individual force curves. 
+The number of the force curve can be called by writing N_Number. For example the first one is number 0 and is called by D.No_0 and FORCE.No_0.
+
+
+<!--REFERENCES
+
+[1.Van der Waals interctions](Pauling, L. and J. Y. Beach (1935). "The van der Waals Interaction of Hydrogen Atoms." Physical Review 47(9): 686-692.)
+
+(http://journals.aps.org/pr/abstract/10.1103/PhysRev.47.686)
+
+[Electrostatic Modelling](Feynman, R. P. (1939). "Forces in Molecules." Physical Review 56(4): 340-343.)
+
+--> 
